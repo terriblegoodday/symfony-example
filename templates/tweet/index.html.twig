@@ -58,7 +58,9 @@
                     {% for tweet_article in tweet_articles %}
                     <h3>{{ tweet_article.name }} </h3>
                     <p>{{ tweet_article.body }}</p>
+                    {% if not (user is null) %}
                     <a class="btn btn-sm btn-secondary mb-4" href="{{ path('tweet_article_edit', {'id': tweet_article.id}) }}">edit</a>
+                    {% endif %}
                     {% for tweet in tweet_article.getTweets() %}
                     <div class="card mb-2">
                         <div class="card-header">
