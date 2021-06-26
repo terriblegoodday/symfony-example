@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="twitter_user")
  * @UniqueEntity(fields={"login"}, message="There is already an account with this login")
  */
 class User implements UserInterface, Serializable
