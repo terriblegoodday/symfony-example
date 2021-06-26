@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TweetArticle{% endblock %}
+
+{% block body %}
+    <h1>TweetArticle</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tweet_article.id }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ tweet_article.body }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tweet_article_index') }}">back to list</a>
+
+    <a href="{{ path('tweet_article_edit', {'id': tweet_article.id}) }}">edit</a>
+
+    {{ include('tweet_article/_delete_form.html.twig') }}
+{% endblock %}

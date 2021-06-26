@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Twitter{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="navbar navbar-light bg-white border-bottom fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand">🐣 Twitter</a>
+                <div class="d-flex align-items-center">
+                    {% if user is null %}
+                    <a class="btn btn-primary" href="./login">Sign In</a>
+                    {% else %}
+                    <a class="btn btn-primary me-4" href="./new">New Tweet</a>
+                    <strong class="me-3 mb-0">@{{ user.getUsername() }}</strong>
+                    <a class="btn btn-light ms-1" href="./logout">Log Out</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container-fluid padding-navbar">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Recent Tweets</h2>
+                    <hr>
+                    {% for tweet in tweets %}
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h4><strong>{{ tweet.getAuthor().fullName }}</strong> @{{ tweet.getAuthor().getUsername() }}</h4>
+                            {% if tweet.getParent() %}
+                            <p>in reply to @{{ tweet.getParent().getAuthor().getLogin() }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0">{{ tweet.body }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-sm btn-secondary" href="{{ path('tweet_edit', {'id': tweet.id}) }}">edit</a>
+                            <a class="btn btn-sm btn-secondary" href="{{ path('tweet_reply', {'parent': tweet.id}) }}">reply</a>
+                        </div>
+                    </div>
+                    {% else %}
+                        <p>No records found</p>
+                    {% endfor %}
+                </div>
+                <div class="col-6">
+                    <h2>Tweet Articles</h2>
+                    <hr>
+                    {% for tweet_article in tweet_articles %}
+                    <h3>{{ tweet_article.name }} </h3>
+                    <p>{{ tweet_article.body }}</p>
+                    <a class="btn btn-sm btn-secondary mb-4" href="{{ path('tweet_article_edit', {'id': tweet_article.id}) }}">edit</a>
+                    {% for tweet in tweet_article.getTweets() %}
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h4><strong>{{ tweet.getAuthor().fullName }}</strong> @{{ tweet.getAuthor().getUsername() }}</h4>
+                            {% if tweet.getParent() %}
+                            <p>in reply to @{{ tweet.getParent().getAuthor().getLogin() }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0">{{ tweet.body }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-sm btn-secondary" href="{{ path('tweet_edit', {'id': tweet.id}) }}">edit</a>
+                            <a class="btn btn-sm btn-secondary" href="{{ path('tweet_reply', {'parent': tweet.id}) }}">reply</a>
+                        </div>
+                    </div>
+                    {% else %}
+                        <p>No records found</p>
+                    {% endfor %}
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
