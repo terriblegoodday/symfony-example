@@ -37,10 +37,16 @@
                         <div class="card-body">
                             <p class="mb-0">{{ tweet.body }}</p>
                         </div>
+                        {% if not (user is null) %}
                         <div class="card-footer">
+                            {% if user == tweet.getAuthor() %}
                             <a class="btn btn-sm btn-secondary" href="{{ path('tweet_edit', {'id': tweet.id}) }}">edit</a>
+                            {% endif %}
+                            {% if not (user is null) %}
                             <a class="btn btn-sm btn-secondary" href="{{ path('tweet_reply', {'parent': tweet.id}) }}">reply</a>
+                            {% endif %}
                         </div>
+                        {% endif %}
                     </div>
                     {% else %}
                         <p>No records found</p>
@@ -64,10 +70,16 @@
                         <div class="card-body">
                             <p class="mb-0">{{ tweet.body }}</p>
                         </div>
+                        {% if not (user is null) %}
                         <div class="card-footer">
+                            {% if user == tweet.getAuthor() %}
                             <a class="btn btn-sm btn-secondary" href="{{ path('tweet_edit', {'id': tweet.id}) }}">edit</a>
+                            {% endif %}
+                            {% if not (user is null) %}
                             <a class="btn btn-sm btn-secondary" href="{{ path('tweet_reply', {'parent': tweet.id}) }}">reply</a>
+                            {% endif %}
                         </div>
+                        {% endif %}
                     </div>
                     {% else %}
                         <p>No records found</p>
